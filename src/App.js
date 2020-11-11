@@ -1,24 +1,77 @@
-import logo from './logo.svg';
 import './App.css';
+import {
+  Route,
+  Switch,
+  Redirect,
+  BrowserRouter as Router
+} from 'react-router-dom';
+import Home from './components/Home.js';
+import Message from './components/Message.js';
+import FocusableInput from './components/FocusableInput.js';
+import Grocery from './components/Grocery.js';
+import ToDoList from './components/ToDoList.js';
+import ImageGallery from './components/ImageGallery.js';
+import User from './components/Username.js';
 
 function App() {
+  const items = [
+    { text: 'Buy grocery', done: true },
+    { text: 'Play guitar', done: false },
+    { text: 'Romantic dinner', done: false }
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/message" component={Message} />
+        <Route exact path="/username" component={User} />
+        <Route
+          exact
+          path="/input"
+          render={props => <FocusableInput {...props} focused={true} />}
+        />
+        <Route
+          exact
+          path="/todo"
+          render={props => (
+            <ToDoList
+              {...props}
+              items={items}
+              onItemClick={(item, event) => {
+                console.log(item, event);
+              }}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/grocery"
+          render={props => (
+            <Grocery
+              {...props}
+              products={[
+                { name: 'Oranges', votes: 0 },
+                { name: 'Bananas', votes: 0 }
+              ]}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/gallery"
+          render={props => (
+            <ImageGallery
+              {...props}
+              links={['https://goo.gl/kjzfbE', 'https://goo.gl/d2JncW']}
+            />
+          )}
+        />
+      </Switch>
+    </Router>
   );
 }
 

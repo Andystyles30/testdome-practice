@@ -16,6 +16,8 @@ class Home extends React.Component {
         <Link to="/grocery">Grocery Component</Link>
         <br />
         <Link to="/gallery">Image Gallery Component</Link>
+        <br />
+        <Link to="/redux">Redux Component</Link>
       </React.Fragment>
     );
   }

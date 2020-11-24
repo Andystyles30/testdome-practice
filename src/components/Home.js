@@ -5,6 +5,7 @@ class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <div data-testid="location-display">you are home</div>
         <Link to="/message">Message Component</Link>
         <br />
         <Link to="/input">Text Input Component</Link>

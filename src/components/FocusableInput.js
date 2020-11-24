@@ -3,7 +3,12 @@ import React from 'react';
 class Input extends React.PureComponent {
   render() {
     let { forwardedRef, ...otherProps } = this.props;
-    return <input {...otherProps} ref={forwardedRef} />;
+    return (
+      <>
+        <div data-testid="location-display">you are on the text input page</div>
+        <input {...otherProps} ref={forwardedRef} />
+      </>
+    );
   }
 }
 

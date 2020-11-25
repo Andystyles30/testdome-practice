@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
-test('renders learn react link', () => {
+test('full app rendering/navigating', () => {
   render(<App />);
   expect(screen.getByText(/you are home/i)).toBeInTheDocument();
 

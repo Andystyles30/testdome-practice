@@ -1,31 +1,34 @@
 import React from 'react';
-
-const TodoItem = props => <li onClick={props.onClick}>{props.item.text}</li>;
+import PropTypes from 'prop-types';
 
 class TodoList extends React.Component {
+  handleItemClick(item, event) {
+    const { onItemClick } = this.props;
+    // Write your code here
+    if (!item.done) {
+      event.persist();
+      onItemClick(item, event);
+    }
+  }
+
   render() {
     const { items } = this.props;
     console.log(items);
     return (
       <ul>
-        {items.map((item, index) => (
-          <TodoItem
-            key={index}
-            item={item}
-            onClick={this.handleItemClick.bind(this, item)}
-          />
+        {items.map((item) => (
+          <button type="button" onClick={this.handleItemClick}>
+            {item.text}
+          </button> // this is temporary to fix eslint errors
+          // <li>{item.text}</li>
         ))}
       </ul>
     );
   }
-
-  handleItemClick(item, event) {
-    // Write your code here
-    if (!item.done) {
-      event.persist();
-      this.props.onItemClick(item, event);
-    }
-  }
 }
 
+TodoList.propTypes = {
+  items: PropTypes.instanceOf(Object).isRequired,
+  onItemClick: PropTypes.func.isRequired,
+};
 export default TodoList;

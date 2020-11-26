@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// eslint-disable-next-line react/prefer-stateless-function
 class Home extends React.Component {
   render() {
     return (
-      <React.Fragment>
+      <>
         <div data-testid="location-display">you are home</div>
         <Link to="/message">Message Component</Link>
         <br />
@@ -19,7 +20,7 @@ class Home extends React.Component {
         <Link to="/gallery">Image Gallery Component</Link>
         <br />
         <Link to="/redux">Redux Component</Link>
-      </React.Fragment>
+      </>
     );
   }
 }

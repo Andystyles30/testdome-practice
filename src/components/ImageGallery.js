@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 class ImageGallery extends React.Component {
@@ -6,20 +7,22 @@ class ImageGallery extends React.Component {
     super(props);
     this.state = { links: props.links };
   }
-  remove = url => {
-    console.log(url);
-    this.setState(state => ({
-      links: state.links.filter(l => l !== url)
+
+  remove = (url) => {
+    this.setState((state) => ({
+      links: state.links.filter((l) => l !== url),
     }));
   };
+
   render() {
+    const { links } = this.state;
     return (
       <div>
-        {this.state.links.map((link, index) => (
-          <div key={index}>
+        {links.map((link) => (
+          <div key={link}>
             <div className="image">
-              <img src={link}></img>
-              <button className="remove" onClick={() => this.remove(link)}>
+              <img alt="img" src={link} />
+              <button type="button" className="remove" onClick={() => this.remove(link)}>
                 X
               </button>
             </div>
@@ -29,5 +32,9 @@ class ImageGallery extends React.Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  links: PropTypes.string.isRequired,
+};
 
 export default ImageGallery;

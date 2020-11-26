@@ -25,7 +25,12 @@ class FocusableInput extends React.Component {
 
   render() {
     // return <TextInput ref={this.ref} onClick={this.handleClick} />;
-    return <input ref={this.ref} />;
+    return (
+      <>
+        <div data-testid="location-display">you are on the text input page</div>
+        <input ref={this.ref} />
+      </>
+    );
   }
 }
 
@@ -34,7 +39,7 @@ FocusableInput.defaultProps = {
 };
 
 FocusableInput.propTypes = {
-  focused: PropTypes.func,
+  focused: PropTypes.bool,
 };
 
 export default FocusableInput;

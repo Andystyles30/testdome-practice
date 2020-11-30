@@ -22,7 +22,9 @@ function User() {
 
   return (
     <div>
-      <button onClick={clickHandler}>Change Username</button>
+      <button type="button" onClick={clickHandler}>
+        Change Username
+      </button>
       <input type="text" ref={input} />
       <Username ref={username} />
     </div>

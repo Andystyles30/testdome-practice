@@ -1,27 +1,15 @@
 import React from 'react';
-
-class Input extends React.PureComponent {
-  render() {
-    let { forwardedRef, ...otherProps } = this.props;
-    return (
-      <>
-        <div data-testid="location-display">you are on the text input page</div>
-        <input {...otherProps} ref={forwardedRef} />
-      </>
-    );
-  }
-}
-
-const TextInput = React.forwardRef((props, ref) => {
-  return <Input {...props} forwardedRef={ref} />;
-});
+import PropTypes from 'prop-types';
 
 class FocusableInput extends React.Component {
   ref = React.createRef();
 
-  render() {
-    // return <TextInput ref={this.ref} onClick={this.handleClick} />;
-    return <TextInput ref={this.ref} />;
+  componentDidMount() {
+    console.log(this.props);
+    const { focused } = this.props;
+    if (focused) {
+      this.ref.current.focus();
+    }
   }
 
   // When the focused prop is changed from false to true,
@@ -29,21 +17,29 @@ class FocusableInput extends React.Component {
   // If focused prop is true, the input should receive the focus.
   // Implement your solution below:
   componentDidUpdate(prevProps) {
-    //console.log('prevprops', prevProps);
-    if (prevProps.focused !== this.props.focused && this.props.focused) {
+    const { focused } = this.props;
+    if (prevProps.focused !== focused && focused) {
       this.ref.current.focus();
     }
   }
-  componentDidMount() {
-    console.log(this.props);
-    if (this.props.focused) {
-      this.ref.current.focus();
-    }
+
+  render() {
+    // return <TextInput ref={this.ref} onClick={this.handleClick} />;
+    return (
+      <>
+        <div data-testid="location-display">you are on the text input page</div>
+        <input ref={this.ref} />
+      </>
+    );
   }
 }
 
 FocusableInput.defaultProps = {
-  focused: false
+  focused: false,
+};
+
+FocusableInput.propTypes = {
+  focused: PropTypes.bool,
 };
 
 export default FocusableInput;

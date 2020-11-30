@@ -1,24 +1,20 @@
 import './App.css';
-import {
-  Route,
-  Switch,
-  Redirect,
-  BrowserRouter as Router
-} from 'react-router-dom';
-import Home from './components/Home.js';
-import Message from './components/Message.js';
-import FocusableInput from './components/FocusableInput.js';
-import Grocery from './components/Grocery.js';
-import ToDoList from './components/ToDoList.js';
-import ImageGallery from './components/ImageGallery.js';
-import User from './components/Username.js';
-import Redux from './components/Redux.js';
+import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import React from 'react';
+import Home from './components/Home';
+import Message from './components/Message';
+import FocusableInput from './components/FocusableInput';
+import Grocery from './components/Grocery';
+import ToDoList from './components/ToDoList';
+import ImageGallery from './components/ImageGallery';
+import User from './components/Username';
+import Redux from './components/Redux';
 
 function App() {
-  const countReducer = function (state = 0, action) {
+  const countReducer = (state = 0, action) => {
     switch (action.type) {
       case 'INCREMENT':
         return state + 1;
@@ -31,9 +27,9 @@ function App() {
   const items = [
     { text: 'Buy grocery', done: true },
     { text: 'Play guitar', done: false },
-    { text: 'Romantic dinner', done: false }
+    { text: 'Romantic dinner', done: false },
   ];
-  let store = createStore(countReducer, composeWithDevTools());
+  const store = createStore(countReducer, composeWithDevTools());
 
   return (
     <Provider store={store}>
@@ -46,17 +42,12 @@ function App() {
           <Route exact path="/redux" component={Redux} />
           <Route exact path="/message" component={Message} />
           <Route exact path="/username" component={User} />
-          <Route
-            exact
-            path="/input"
-            render={props => <FocusableInput {...props} focused={true} />}
-          />
+          <Route exact path="/input" render={() => <FocusableInput focused />} />
           <Route
             exact
             path="/todo"
-            render={props => (
+            render={() => (
               <ToDoList
-                {...props}
                 items={items}
                 onItemClick={(item, event) => {
                   console.log(item, event);
@@ -67,12 +58,11 @@ function App() {
           <Route
             exact
             path="/grocery"
-            render={props => (
+            render={() => (
               <Grocery
-                {...props}
                 products={[
                   { name: 'Oranges', votes: 0 },
-                  { name: 'Bananas', votes: 0 }
+                  { name: 'Bananas', votes: 0 },
                 ]}
               />
             )}
@@ -80,11 +70,8 @@ function App() {
           <Route
             exact
             path="/gallery"
-            render={props => (
-              <ImageGallery
-                {...props}
-                links={['https://goo.gl/kjzfbE', 'https://goo.gl/d2JncW']}
-              />
+            render={() => (
+              <ImageGallery links={['https://goo.gl/kjzfbE', 'https://goo.gl/d2JncW']} />
             )}
           />
         </Switch>
